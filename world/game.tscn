@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://44eghkt836dc"]
+
+[ext_resource type="PackedScene" uid="uid://ch03d2bwf8g73" path="res://bird/bird.tscn" id="1_pv8b6"]
+
+[node name="Game" type="Node2D"]
+
+[node name="BackgroundTexture" type="Sprite2D" parent="."]
+
+[node name="Floor" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+
+[node name="FloorTexture" type="Sprite2D" parent="Floor"]
+
+[node name="Bird" parent="." instance=ExtResource("1_pv8b6")]
