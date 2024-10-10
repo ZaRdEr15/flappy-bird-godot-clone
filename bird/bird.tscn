@@ -1,17 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://ch03d2bwf8g73"]
+[gd_scene load_steps=5 format=3 uid="uid://ch03d2bwf8g73"]
 
 [ext_resource type="Script" path="res://bird/bird.gd" id="1_awkpk"]
 [ext_resource type="Texture2D" uid="uid://cvhubcurewfi4" path="res://bird/yellowbird-downflap.png" id="1_q3yb4"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_xupr0"]
-radius = 15.0333
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m1wry"]
+radius = 12.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rjw0x"]
+radius = 12.0
 
 [node name="Bird" type="CharacterBody2D"]
 script = ExtResource("1_awkpk")
 
-[node name="BirdTexture" type="Sprite2D" parent="."]
+[node name="Texture" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("1_q3yb4")
 
-[node name="BirdCollisionShape" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_xupr0")
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_m1wry")
+
+[node name="CollisionDetection" type="Area2D" parent="."]
+
+[node name="CollisionShape" type="CollisionShape2D" parent="CollisionDetection"]
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_rjw0x")
+
+[connection signal="area_entered" from="CollisionDetection" to="." method="_on_collision_detection_area_entered"]

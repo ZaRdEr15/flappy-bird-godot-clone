@@ -1,17 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://o0fjdikevna8"]
+[gd_scene load_steps=4 format=3 uid="uid://o0fjdikevna8"]
 
 [ext_resource type="Texture2D" uid="uid://bxr7iol5ppdcp" path="res://world/base.png" id="1_hhg6e"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0osfx"]
-size = Vector2(336, 11)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kf8qx"]
+distance = 54.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e5cvl"]
+size = Vector2(102, 11)
 
 [node name="Floor" type="StaticBody2D"]
 
-[node name="FloorTexture" type="Sprite2D" parent="."]
+[node name="Texture" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("1_hhg6e")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -48.5)
-shape = SubResource("RectangleShape2D_0osfx")
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("WorldBoundaryShape2D_kf8qx")
 one_way_collision_margin = 4.0
+
+[node name="CollisionDetection" type="Area2D" parent="."]
+
+[node name="CollisionShape" type="CollisionShape2D" parent="CollisionDetection"]
+position = Vector2(0, -51)
+shape = SubResource("RectangleShape2D_e5cvl")

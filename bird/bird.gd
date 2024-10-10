@@ -4,7 +4,10 @@ const JUMP_VELOCITY: int = -400.0
 const ROTATION_UPPER_LIMIT: int = -30
 const ROTATION_LOWER_LIMIT: int = 45
 const ROTATION_PER_JUMP: int = 30
-const ROTATION_DECREASE_VELOCITY: int = 30
+
+var hit: bool = false
+
+@onready var START_POS: Vector2i = position
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -12,9 +15,10 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
 func _physics_process(delta: float) -> void:
-	#apply_gravity(delta)
-	tilt_nose_down()
-	handle_input()
+	apply_gravity(delta)
+	if not hit:
+		tilt_nose()
+		handle_input()
 	move_and_slide()
 
 
@@ -25,12 +29,17 @@ func apply_gravity(delta: float) -> void:
 
 func handle_input() -> void:
 	if Input.is_action_just_pressed("jump"):
-		#velocity.y = JUMP_VELOCITY
-		if rotation_degrees >= ROTATION_UPPER_LIMIT:
-			rotation_degrees -= ROTATION_PER_JUMP
+		velocity.y = JUMP_VELOCITY
 
 
-func tilt_nose_down() -> void:
-	if rad_to_deg(rotation) <= ROTATION_LOWER_LIMIT:
-		rotation = lerp_angle(rotation, \
-				deg_to_rad(rotation_degrees + ROTATION_DECREASE_VELOCITY), 0.1)
+func tilt_nose() -> void:
+	set_rotation(deg_to_rad(velocity.y * 0.06))
+
+
+func reset() -> void:
+	set_rotation(0)
+	set_position(START_POS)
+
+
+func _on_collision_detection_area_entered(area):
+	hit = true
