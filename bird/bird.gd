@@ -12,8 +12,8 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
 func _physics_process(delta: float) -> void:
-	apply_gravity(delta)
-	tilt_nose_down(delta)
+	#apply_gravity(delta)
+	tilt_nose_down()
 	handle_input()
 	move_and_slide()
 
@@ -25,11 +25,12 @@ func apply_gravity(delta: float) -> void:
 
 func handle_input() -> void:
 	if Input.is_action_just_pressed("jump"):
-		velocity.y = JUMP_VELOCITY
+		#velocity.y = JUMP_VELOCITY
 		if rotation_degrees >= ROTATION_UPPER_LIMIT:
 			rotation_degrees -= ROTATION_PER_JUMP
 
 
-func tilt_nose_down(delta: float) -> void:
-	if rotation_degrees <= ROTATION_LOWER_LIMIT:
-		rotation_degrees += delta * ROTATION_DECREASE_VELOCITY
+func tilt_nose_down() -> void:
+	if rad_to_deg(rotation) <= ROTATION_LOWER_LIMIT:
+		rotation = lerp_angle(rotation, \
+				deg_to_rad(rotation_degrees + ROTATION_DECREASE_VELOCITY), 0.1)
