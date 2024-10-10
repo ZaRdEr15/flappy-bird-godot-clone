@@ -13,7 +13,6 @@ radius = 12.0
 script = ExtResource("1_awkpk")
 
 [node name="Texture" type="Sprite2D" parent="."]
-texture_filter = 1
 texture = ExtResource("1_q3yb4")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]

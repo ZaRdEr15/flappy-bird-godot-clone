@@ -41,5 +41,5 @@ func reset() -> void:
 	set_position(START_POS)
 
 
-func _on_collision_detection_area_entered(area):
+func _on_collision_detection_area_entered(_area):
 	hit = true
