@@ -19,6 +19,8 @@ func _physics_process(delta: float) -> void:
 	if not hit:
 		tilt_nose()
 		handle_input()
+	if Input.is_action_just_pressed("reset"):
+		reset()
 	move_and_slide()
 
 
@@ -37,6 +39,7 @@ func tilt_nose() -> void:
 
 
 func reset() -> void:
+	hit = false
 	set_rotation(0)
 	set_position(START_POS)
 
