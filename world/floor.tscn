@@ -19,6 +19,7 @@ shape = SubResource("WorldBoundaryShape2D_kf8qx")
 one_way_collision_margin = 4.0
 
 [node name="CollisionDetection" type="Area2D" parent="."]
+monitoring = false
 
 [node name="CollisionShape" type="CollisionShape2D" parent="CollisionDetection"]
 position = Vector2(0, -51)

@@ -6,6 +6,7 @@ const ROTATION_LOWER_LIMIT: int = 45
 const ROTATION_PER_JUMP: int = 30
 
 var hit: bool = false
+var game_started: bool = false
 
 @onready var START_POS: Vector2i = position
 
@@ -15,13 +16,16 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
 func _physics_process(delta: float) -> void:
-	apply_gravity(delta)
-	if not hit:
-		tilt_nose()
-		handle_input()
-	if Input.is_action_just_pressed("reset"):
-		reset()
-	move_and_slide()
+	if Input.is_action_just_pressed("jump"):
+		game_started = true
+	if game_started:
+		apply_gravity(delta)
+		if not hit:
+			tilt_nose()
+			handle_input()
+		if Input.is_action_just_pressed("reset"):
+			reset()
+		move_and_slide()
 
 
 func apply_gravity(delta: float) -> void:
@@ -40,9 +44,11 @@ func tilt_nose() -> void:
 
 func reset() -> void:
 	hit = false
+	$AnimatedTexture.play()
 	set_rotation(0)
 	set_position(START_POS)
 
 
 func _on_collision_detection_area_entered(_area):
 	hit = true
+	$AnimatedTexture.pause()
