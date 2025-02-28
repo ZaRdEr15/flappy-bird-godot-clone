@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://ch03d2bwf8g73"]
+[gd_scene load_steps=11 format=3 uid="uid://ch03d2bwf8g73"]
 
 [ext_resource type="Script" path="res://bird/bird.gd" id="1_awkpk"]
 [ext_resource type="Texture2D" uid="uid://cvhubcurewfi4" path="res://bird/yellowbird-downflap.png" id="1_q3yb4"]
 [ext_resource type="Texture2D" uid="uid://dlwitdqtr771u" path="res://bird/yellowbird-upflap.png" id="2_nvw0f"]
 [ext_resource type="Texture2D" uid="uid://b0bpqv2jfwl10" path="res://bird/yellowbird-midflap.png" id="3_fxnsy"]
 [ext_resource type="AudioStream" uid="uid://dj404kcyixrb1" path="res://sound/wing.wav" id="5_fxrcj"]
+[ext_resource type="AudioStream" uid="uid://cx75wkarkniki" path="res://sound/hit.wav" id="6_rgrr5"]
+[ext_resource type="AudioStream" uid="uid://c4nrqlycbhw38" path="res://sound/die.wav" id="7_debo0"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mrnca"]
 animations = [{
@@ -57,7 +59,14 @@ shape = SubResource("CapsuleShape2D_rjw0x")
 stream = ExtResource("5_fxrcj")
 
 [node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_rgrr5")
 
 [node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_debo0")
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
 
 [connection signal="area_entered" from="CollisionDetection" to="." method="_on_collision_detection_area_entered"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
