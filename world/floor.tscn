@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://o0fjdikevna8"]
+[gd_scene load_steps=5 format=3 uid="uid://o0fjdikevna8"]
 
+[ext_resource type="Script" path="res://world/floor.gd" id="1_7b4gj"]
 [ext_resource type="Texture2D" uid="uid://bxr7iol5ppdcp" path="res://world/base.png" id="1_hhg6e"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kf8qx"]
@@ -9,9 +10,15 @@ distance = 54.0
 size = Vector2(102, 11)
 
 [node name="Floor" type="StaticBody2D"]
+script = ExtResource("1_7b4gj")
 
 [node name="Texture" type="Sprite2D" parent="."]
 texture_filter = 1
+texture = ExtResource("1_hhg6e")
+
+[node name="Texture2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(336, 0)
 texture = ExtResource("1_hhg6e")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]

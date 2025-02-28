@@ -1,9 +1,7 @@
 extends CharacterBody2D
 
-const JUMP_VELOCITY: int = -400.0
-const ROTATION_UPPER_LIMIT: int = -30
-const ROTATION_LOWER_LIMIT: int = 45
-const ROTATION_PER_JUMP: int = 30
+const JUMP_VELOCITY: int = -300.0
+const TILT: float = 0.1
 
 var hit: bool = false
 var game_started: bool = false
@@ -21,10 +19,8 @@ func _physics_process(delta: float) -> void:
 	if game_started:
 		apply_gravity(delta)
 		if not hit:
-			tilt_nose()
 			handle_input()
-		if Input.is_action_just_pressed("reset"):
-			reset()
+		tilt_nose(delta)
 		move_and_slide()
 
 
@@ -36,10 +32,15 @@ func apply_gravity(delta: float) -> void:
 func handle_input() -> void:
 	if Input.is_action_just_pressed("jump"):
 		velocity.y = JUMP_VELOCITY
+	if Input.is_action_just_pressed("reset"): # For debug purpose only
+		reset()
 
 
-func tilt_nose() -> void:
-	set_rotation(deg_to_rad(velocity.y * 0.06))
+func tilt_nose(delta: float) -> void:
+	if not hit:
+		set_rotation_degrees(clampf(velocity.y * TILT, -35, 90))
+	else:
+		rotation = lerp_angle(rotation, deg_to_rad(90.0), TILT)
 
 
 func reset() -> void:
@@ -52,3 +53,4 @@ func reset() -> void:
 func _on_collision_detection_area_entered(_area):
 	hit = true
 	$AnimatedTexture.pause()
+	$AnimatedTexture.set_frame(1)

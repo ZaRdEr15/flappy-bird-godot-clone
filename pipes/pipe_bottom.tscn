@@ -7,12 +7,11 @@
 size = Vector2(52, 320)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w11hb"]
-size = Vector2(52, 321)
+size = Vector2(56, 323)
 
 [node name="PipeBottom" type="StaticBody2D"]
 z_index = 1
 script = ExtResource("1_177lj")
-metadata/_edit_group_ = true
 
 [node name="Texture" type="Sprite2D" parent="."]
 texture = ExtResource("1_muy88")
@@ -23,7 +22,7 @@ shape = SubResource("RectangleShape2D_i167l")
 [node name="CollisionDetection" type="Area2D" parent="."]
 collision_mask = 2
 
-[node name="CollisionShape" type="CollisionShape2D" parent="CollisionDetection"]
+[node name="CollisionDetectionShape" type="CollisionShape2D" parent="CollisionDetection"]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_w11hb")
 
