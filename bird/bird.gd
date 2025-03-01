@@ -3,8 +3,9 @@ extends CharacterBody2D
 
 signal bird_hit
 
-
-const JUMP_VELOCITY: int = -300.0
+const FLOOR_HEIGHT: int = 457
+const MIN_HEIGHT_DEATH_SOUND: int = 380
+const JUMP_VELOCITY: int = -300
 const TILT: float = 0.1
 
 
@@ -61,11 +62,12 @@ func _on_collision_detection_area_entered(_area):
 	if not hit:
 		hit = true
 		$HitSound.play()
-		$DeathTimer.start()
+		# Only play sound if above certain height
+		if position.y < MIN_HEIGHT_DEATH_SOUND:
+			# Change tempo according to height from bird to floor. Closer to floor, quicker the tempo
+			var tempo = remap(abs(position.y - FLOOR_HEIGHT), 0, FLOOR_HEIGHT, 2.0, 0.5)
+			$DeathSound.set_pitch_scale(tempo)
+			$DeathSound.play()
 		emit_signal("bird_hit")
 		$AnimatedTexture.pause()
 		$AnimatedTexture.set_frame(1)
-
-
-func _on_death_timer_timeout() -> void:
-	$DeathSound.play()

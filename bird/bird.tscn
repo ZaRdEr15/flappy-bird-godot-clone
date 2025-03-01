@@ -64,9 +64,4 @@ stream = ExtResource("6_rgrr5")
 [node name="DeathSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_debo0")
 
-[node name="DeathTimer" type="Timer" parent="."]
-wait_time = 0.2
-one_shot = true
-
 [connection signal="area_entered" from="CollisionDetection" to="." method="_on_collision_detection_area_entered"]
-[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
