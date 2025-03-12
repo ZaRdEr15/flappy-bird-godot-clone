@@ -1,26 +1,25 @@
 extends Node2D
 
 
+signal start_game
+
+
 @onready var bird = $Bird
 @onready var floor = $Floor
-@onready var bottom_pipe = preload("res://pipes/pipe_bottom.tscn").instantiate()
+@onready var pipes = $PipeController
 
 
-var place_once: bool = true
+var game_started: bool = false
 
 
 func _ready() -> void:
 	bird.bird_hit.connect(floor._on_bird_hit)
+	bird.bird_hit.connect(pipes._on_bird_hit)
+	connect("start_game", bird._on_start_game)
+	connect("start_game", pipes._on_start_game)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	if not bird.hit:
-		if bird.game_started:
-			move_pipes()
-		
-	
-func move_pipes() -> void:
-	if place_once:
-		add_child(bottom_pipe)
-		place_once = false
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("jump") and not game_started:	
+		game_started = true
+		emit_signal("start_game")

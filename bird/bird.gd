@@ -21,8 +21,6 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("jump"):
-		game_started = true
 	if game_started:
 		apply_gravity(delta)
 		if not hit:
@@ -56,18 +54,25 @@ func reset() -> void:
 	$AnimatedTexture.play()
 	set_rotation(0)
 	set_position(START_POS)
-
+	
+	
+func play_death_sound_if_above_height():
+	# Only play sound if above certain height
+	if position.y < MIN_HEIGHT_DEATH_SOUND:
+		# Change tempo according to height from bird to floor. Closer to floor, quicker the tempo
+		var tempo = remap(abs(position.y - FLOOR_HEIGHT), 0, FLOOR_HEIGHT, 2.0, 0.5)
+		$DeathSound.set_pitch_scale(tempo)
+		$DeathSound.play()
 
 func _on_collision_detection_area_entered(_area):
 	if not hit:
 		hit = true
 		$HitSound.play()
-		# Only play sound if above certain height
-		if position.y < MIN_HEIGHT_DEATH_SOUND:
-			# Change tempo according to height from bird to floor. Closer to floor, quicker the tempo
-			var tempo = remap(abs(position.y - FLOOR_HEIGHT), 0, FLOOR_HEIGHT, 2.0, 0.5)
-			$DeathSound.set_pitch_scale(tempo)
-			$DeathSound.play()
+		play_death_sound_if_above_height()
 		emit_signal("bird_hit")
 		$AnimatedTexture.pause()
-		$AnimatedTexture.set_frame(1)
+		$AnimatedTexture.set_frame(1) # No flap frame
+		
+		
+func _on_start_game():
+	game_started = true

@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://44eghkt836dc"]
+[gd_scene load_steps=7 format=3 uid="uid://44eghkt836dc"]
 
 [ext_resource type="Script" path="res://world/game.gd" id="1_7nru8"]
 [ext_resource type="Texture2D" uid="uid://cs2uccv5f1ugn" path="res://world/background-day.png" id="1_68nxy"]
 [ext_resource type="PackedScene" uid="uid://ch03d2bwf8g73" path="res://bird/bird.tscn" id="1_pv8b6"]
 [ext_resource type="PackedScene" uid="uid://o0fjdikevna8" path="res://world/floor.tscn" id="3_y285b"]
+[ext_resource type="Script" path="res://world/pipe_controller.gd" id="5_dxi3w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tvsgd"]
 size = Vector2(55, 2)
@@ -11,7 +12,7 @@ size = Vector2(55, 2)
 [node name="Game" type="Node2D"]
 script = ExtResource("1_7nru8")
 
-[node name="Background" type="Sprite2D" parent="."]
+[node name="StaticBackground" type="Sprite2D" parent="."]
 z_index = -2
 texture_filter = 1
 position = Vector2(144, 256)
@@ -31,3 +32,6 @@ metadata/_edit_group_ = true
 
 [node name="CollisionShape" type="CollisionShape2D" parent="Ceiling"]
 shape = SubResource("RectangleShape2D_tvsgd")
+
+[node name="PipeController" type="Node" parent="."]
+script = ExtResource("5_dxi3w")
