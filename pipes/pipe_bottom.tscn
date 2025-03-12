@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://3elhuhes4h78"]
+[gd_scene load_steps=5 format=3 uid="uid://3elhuhes4h78"]
 
 [ext_resource type="Texture2D" uid="uid://d2i3yi5gcw15j" path="res://pipes/pipe-green.png" id="1_muy88"]
+[ext_resource type="Script" path="res://pipes/pipe.gd" id="1_scb4v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i167l"]
 size = Vector2(52, 320)
@@ -11,6 +12,7 @@ size = Vector2(56, 323)
 [node name="PipeBottom" type="StaticBody2D"]
 z_index = 1
 collision_layer = 2
+script = ExtResource("1_scb4v")
 
 [node name="Texture" type="Sprite2D" parent="."]
 texture = ExtResource("1_muy88")

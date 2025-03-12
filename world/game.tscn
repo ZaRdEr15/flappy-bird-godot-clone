@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://44eghkt836dc"]
+[gd_scene load_steps=9 format=3 uid="uid://44eghkt836dc"]
 
 [ext_resource type="Script" path="res://world/game.gd" id="1_7nru8"]
 [ext_resource type="Texture2D" uid="uid://cs2uccv5f1ugn" path="res://world/background-day.png" id="1_68nxy"]
 [ext_resource type="PackedScene" uid="uid://ch03d2bwf8g73" path="res://bird/bird.tscn" id="1_pv8b6"]
 [ext_resource type="PackedScene" uid="uid://o0fjdikevna8" path="res://world/floor.tscn" id="3_y285b"]
 [ext_resource type="Script" path="res://world/pipe_controller.gd" id="5_dxi3w"]
+[ext_resource type="Texture2D" uid="uid://bj4jae60gxp8y" path="res://ui/message.png" id="6_tepw5"]
+[ext_resource type="Script" path="res://world/ui.gd" id="6_xobj8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tvsgd"]
 size = Vector2(55, 2)
@@ -35,3 +37,20 @@ shape = SubResource("RectangleShape2D_tvsgd")
 
 [node name="PipeController" type="Node" parent="."]
 script = ExtResource("5_dxi3w")
+
+[node name="UI" type="Control" parent="."]
+z_index = 3
+layout_mode = 3
+anchors_preset = 0
+offset_left = 52.0
+offset_top = 60.0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+script = ExtResource("6_xobj8")
+
+[node name="StartScreen" type="TextureRect" parent="UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("6_tepw5")
