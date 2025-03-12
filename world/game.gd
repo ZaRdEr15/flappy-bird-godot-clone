@@ -7,7 +7,7 @@ signal start_game
 @onready var bird = $Bird
 @onready var floor_tile = $Floor
 @onready var pipes = $PipeController
-@onready var ui = $UI
+@onready var ui = $CanvasLayer/UI
 
 
 var game_started: bool = false
